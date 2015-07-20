@@ -1,0 +1,34 @@
+body {
+  background-color: black;
+}
+input {
+  min-width:80%;
+}
+
+.container {
+  background-color: rgba(255,255,255,0.5);
+  padding:5vh 0;
+  border-radius: 2vh;
+}
+#movie {
+  padding:5vh 20vh 0 20vh;
+  display:none;
+}
+
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto; 
+    
+}
