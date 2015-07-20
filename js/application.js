@@ -1,6 +1,7 @@
 $(document).ready(function () {
   $('#search-movie-input').keypress(function () {
     $('#movie').slideUp();
+    //remove
   })
   $('#submit').click(function (e) {
     e.preventDefault();
@@ -18,7 +19,9 @@ $(document).ready(function () {
         } else if (keys === 'Title') {
           $('#movie-title').text(response[keys]);
         } else {
-          $('#movie-' + keys.toLowerCase() + '-label').after('<p class="col-xs-9" id="movie-"' + keys + '">' + response[keys] + '</p>');
+          //remove previous
+          $('#movie-' + keys.toLowerCase()).remove();
+          $('#movie-' + keys.toLowerCase() + '-label').after('<p class="col-xs-9" id="movie-' + keys.toLowerCase() + '">' + response[keys] + '</p>');
         }
       } 
       $('#movie').slideDown();
