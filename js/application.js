@@ -15,8 +15,10 @@ $(document).ready(function () {
       for (keys in response) {
         if (keys === 'Poster') {
           $('#movie-image').attr('src', response[keys]);
+        } else if (keys === 'Title') {
+          $('#movie-title').text(response[keys]);
         } else {
-          $('#movie-' + keys.toLowerCase()).text(response[keys]);
+          $('#movie-' + keys.toLowerCase() + '-label').after('<p class="col-xs-9" id="movie-"' + keys + '">' + response[keys] + '</p>');
         }
       } 
       $('#movie').slideDown();
