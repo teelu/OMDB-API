@@ -22,6 +22,7 @@ $(document).ready(function () {
     url: "http://www.omdbapi.com/?t=" + query + "&y=&plot=short&r=json",
     dataType: "JSON",
     success: function(response){ 
+      console.log(response);
       for (keys in response) {
         if (keys === 'Poster') {
           $('#movie-image').attr('src', response[keys]);
