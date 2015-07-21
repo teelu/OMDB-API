@@ -1,5 +1,34 @@
-$(document).ready(function () {
+var MovieObject = function (query) {
+  this.query = query;
+  this.response;
+}
 
+MovieObject.prototype.executeAjax = function () {
+  $.ajax({
+    type: "GET",
+    url: "http://www.omdbapi.com/?t=" + this.query + "&y=&plot=short&r=json",
+    dataType: "JSON",
+    success: function(response){ 
+      for (keys in response) {
+        if (keys === 'Poster') {
+          $('#movie-image').attr('src', response[keys]);
+        } else if (keys === 'Title') {
+          $('#movie-title').text(response[keys]);
+        } else {
+          //remove previous
+          $('#movie-' + keys.toLowerCase()).remove();
+          $('#movie-' + keys.toLowerCase() + '-label').after('<p class="col-xs-9" id="movie-' + keys.toLowerCase() + '">' + response[keys] + '</p>');
+        }
+      } 
+      $('#movie').slideDown();
+    }
+  });
+}
+
+
+$(document).ready(function () {
+  $(document).ajaxSuccess(function () {
+  })
   $(document).ajaxStart(function() {
     $('#loading').css({'display': 'block'});
     });
@@ -16,26 +45,7 @@ $(document).ready(function () {
     e.preventDefault();
     //Grab value
     var query = $('#search-movie-input').val();
-    //Ajax call
-    $.ajax({
-    type: "GET",
-    url: "http://www.omdbapi.com/?t=" + query + "&y=&plot=short&r=json",
-    dataType: "JSON",
-    success: function(response){ 
-      console.log(response);
-      for (keys in response) {
-        if (keys === 'Poster') {
-          $('#movie-image').attr('src', response[keys]);
-        } else if (keys === 'Title') {
-          $('#movie-title').text(response[keys]);
-        } else {
-          //remove previous
-          $('#movie-' + keys.toLowerCase()).remove();
-          $('#movie-' + keys.toLowerCase() + '-label').after('<p class="col-xs-9" id="movie-' + keys.toLowerCase() + '">' + response[keys] + '</p>');
-        }
-      } 
-      $('#movie').slideDown();
-    }
-  });
+    movieSearch = new MovieObject(query);
+    movieSearch.executeAjax();
   })
 })
